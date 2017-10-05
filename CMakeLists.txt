@@ -1,4 +1,12 @@
-PROJECT(YouBot_Driver)
+# Catkin User Guide: http://www.ros.org/doc/groovy/api/catkin/html/user_guide/user_guide.html
+# Catkin CMake Standard: http://www.ros.org/doc/groovy/api/catkin/html/user_guide/standards.html
+cmake_minimum_required(VERSION 2.8.3)
+project(youbot_driver)
+# Load catkin and all dependencies required for this package
+# TODO: remove all from COMPONENTS that are not catkin packages.
+find_package(catkin REQUIRED COMPONENTS roscpp)
+
+# include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})PROJECT(YouBot_Driver)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 OPTION(USE_ROS "Enable ROS as compile tool" OFF)
@@ -6,8 +14,12 @@ OPTION(USE_ROS "Enable ROS as compile tool" OFF)
 ########### ROS ###########
 SET(ROS_ROOT_PATH $ENV{ROS_ROOT})
 IF(DEFINED ROS_ROOT_PATH AND USE_ROS MATCHES ON)
-  include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
-  rosbuild_init()
+
+# CATKIN_MIGRATION: removed during catkin migration
+#   include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
+
+# CATKIN_MIGRATION: removed during catkin migration
+#   rosbuild_init()
   ADD_DEFINITIONS(-DUSE_ROS_LOGGING)
 ENDIF(DEFINED ROS_ROOT_PATH AND USE_ROS MATCHES ON)
 
@@ -147,7 +159,7 @@ SET(YOUBOT_DRIVER_CONFIG
 )
 
 IF(DEFINED ROS_ROOT_PATH AND USE_ROS MATCHES ON)
-  rosbuild_add_library(YouBotDriver ${YOUBOT_DRIVER_SRC})
+  add_library(YouBotDriver ${YOUBOT_DRIVER_SRC})
 ELSE(DEFINED ROS_ROOT_PATH AND USE_ROS MATCHES ON)
   ADD_LIBRARY(YouBotDriver ${YOUBOT_DRIVER_SRC})
 ENDIF(DEFINED ROS_ROOT_PATH AND USE_ROS MATCHES ON)
@@ -183,3 +195,16 @@ INSTALL(TARGETS YouBotDriver YouBotDriverShared RUNTIME DESTINATION bin LIBRARY 
 
 #target_link_libraries(YouBot_test YouBotDriver)
 
+## Generate added messages and services with any dependencies listed here
+#generate_messages(
+#    #TODO DEPENDENCIES geometry_msgs std_msgs
+#)
+
+# catkin_package parameters: http://ros.org/doc/groovy/api/catkin/html/dev_guide/generated_cmake_api.html#catkin-package
+# TODO: fill in what other packages will need to use this package
+catkin_package(
+    DEPENDS roscpp boost-all
+    CATKIN_DEPENDS # TODO
+    INCLUDE_DIRS # TODO include
+    LIBRARIES # TODO
+)
