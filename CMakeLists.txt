@@ -206,7 +206,7 @@ catkin_package(
     DEPENDS roscpp boost-all
     CATKIN_DEPENDS # TODO
     INCLUDE_DIRS  ${PROJECT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/soem/src
-    LIBRARIES # TODO
+    LIBRARIES YouBotDriver# TODO
 )
 
 install(DIRECTORY ${PROJECT_SOURCE_DIR}
